@@ -1,0 +1,25 @@
+# --- ESP32 Specific ---
+*.bin
+*.elf
+*.hex
+*.out
+*.map
+libraries/
+build/
+.pio/
+
+# --- Sensitive Data ---
+# If you move your credentials to a separate file, 
+# uncomment the line below:
+# config.h
+
+# --- IDE Specific ---
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# --- Logs ---
+*.log

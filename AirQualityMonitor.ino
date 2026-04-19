@@ -1,3 +1,4 @@
+// This code is based for our ESP32 prototype
 #define BLYNK_TEMPLATE_ID "TMPL3uzjcFJv_"
 #define BLYNK_TEMPLATE_NAME "Air Quality Monitoring"
 #define BLYNK_AUTH_TOKEN "bqkLKIlZBisNbYUsAt83JU-oYoNKwdH-"

@@ -1,15 +1,19 @@
-# STM32 & IDE 
+# Arduino/PlatformIO Build Files
 .pio/
 .vscode/
 build/
+bin/
 *.bin
 *.elf
-*.map
 *.hex
-.mxproject
-Debug/
-Release/
+*.map
 
-# OS Files
+# Local/OS Junk
 .DS_Store
 Thumbs.db
+*.swp
+*.swo
+
+# Sensitive Data (Safety)
+config.h
+secrets.h

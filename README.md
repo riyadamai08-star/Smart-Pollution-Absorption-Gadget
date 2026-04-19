@@ -1,34 +1,44 @@
-# Smart-Pollution-Absorption-Gadget
-An ESP32-powered IoT Air Quality monitor that calculates filtration efficiency and automates fan control based on gas levels, humidity, and thermal safety limits.
+# Industrial LoRa Air Quality Monitor (STM32)
 
-# IoT Air Quality Monitoring & Automated Filtration System
+A high-performance, long-range environmental sensing node built on the **STM32 BlackPill** (Cortex-M4). This system tracks fine particulate matter and hazardous gases, transmitting data via **LoRa (Long Range)** telemetry. It is designed for industrial environments where Wi-Fi is unreliable or unavailable.
 
-An ESP32-based environmental monitoring solution that tracks air pollutants in real-time and manages air flow via an automated fan system. This project integrates multiple sensors to provide a comprehensive view of indoor air health through the Blynk IoT platform.
+## 🚀 Key Features
+- **ARM Cortex-M4 Processing:** High-speed data acquisition using the STM32F411CEU6.
+- **Laser Particulate Sensing:** Planttower PMS5003 provides accurate PM1.0, PM2.5, and PM10 measurements.
+- **Multi-Gas Detection:** MICS-6814 sensor isolates Nitrogen Dioxide (NO2), Ammonia (NH3), and Carbon Monoxide (CO).
+- **Sub-GHz Telemetry:** SX1278 LoRa module enables data transmission over several kilometers.
+- **Laboratory-Grade Climate Data:** SHT31-D I2C sensor for high-precision temperature and humidity tracking.
+- **Automated Actuation:** Intelligent relay control for exhaust fans based on pollutant thresholds and thermal safety.
 
-## 🌟 Key Features
-- **Pollutant Tracking:** Monitors levels of Ammonia, NOx, Benzene, Sulfide, and Smoke using the MQ135 sensor.
-- **Dual-Zone Temperature:** Simultaneously reads ambient temperature (DHT11) and hardware/waterproof temperature (DS18B20).
-- **Smart Logic:** Automated fan control that adjusts its trigger threshold based on humidity levels.
-- **Safety Protocol:** Hardware protection layer that force-stops the fan/system if temperatures exceed 50°C.
-- **Remote Dashboard:** Full mobile control with manual override and real-time data visualization via Blynk.
+## 🛠 Hardware Stack
+| Component | Function | Protocol |
+| :--- | :--- | :--- |
+| **STM32 BlackPill** | Main Microcontroller (F411) | - |
+| **SX1278 (Ra-02)** | LoRa Transceiver (433MHz) | SPI |
+| **Planttower PMS5003** | Laser Particle Counter | UART |
+| **MICS-6814** | Multi-Gas Sensor | Analog |
+| **SHT31-D** | High-Accuracy Temp/Hum | I2C |
+| **Relay Module** | 5V Fan Control | Digital |
 
-## 🛠 Hardware Components
-- **Microcontroller:** ESP32 (NodeMCU)
-- **Air Quality:** MQ135 Gas Sensor
-- **Ambient Sensors:** DHT11 (Temp & Humidity)
-- **Precision Temp:** DS18B20 (OneWire)
-- **Actuators:** 5V Relay Module & DC Exhaust Fan
+## 📋 Pin Mapping (STM32F411)
+- **LoRa (SPI1):** `NSS: PA4`, `SCK: PA5`, `MISO: PA6`, `MOSI: PA7`, `RST: PB1`, `DIO0: PB2`
+- **PMS5003 (UART1):** `TX: PA9`, `RX: PA10`
+- **SHT31 (I2C1):** `SCL: PB6`, `SDA: PB7`
+- **MICS-6814 (ADC):** `NO2: PA0`, `NH3: PA1`, `CO: PA2`
+- **Actuator:** `Fan Relay: PB0`
 
-## 📊 Data Mapping (Blynk Virtual Pins)
-| Pin | Description | Pin | Description |
-| :--- | :--- | :--- | :--- |
-| **V0** | Inlet Raw Data | **V8** | Benzene Level |
-| **V2** | DS18B20 Temp | **V11** | Inlet AQI |
-| **V3** | Filter Efficiency % | **V13** | Humidity % |
-| **V4** | Manual Fan Toggle | **V14** | DHT11 Temp |
-| **V6** | Ammonia Level | **V15** | System Terminal |
+## ⚙️ Setup & Installation
+1. **Board Support:** Install the **STM32 Cores** in your Arduino IDE Board Manager.
+2. **Library Dependencies:**
+   - `LoRa` by Sandeep Mistry
+   - `Adafruit SHT31 Library`
+   - `PMS Library` by Mariusz Kierski
+3. **Firmware:** Update the frequency in the code (`433E6` for Asia/Europe) to match your local LoRa regulations.
+4. **Safety Logic:** The fan triggers automatically if $PM_{2.5} > 35 \mu g/m^3$ or if NO2 levels spike.
 
-## 🚀 Getting Started
-1. **Libraries:** Install `Blynk`, `DHT`, `OneWire`, and `DallasTemperature` via Arduino Library Manager.
-2. **Configuration:** Enter your WiFi credentials and Blynk Auth Token in the main `.ino` file.
-3. **Calibration:** For better AQI accuracy, ensure the MQ135 has been "burned-in" for at least 24 hours.
+## 📡 Data Packet Format
+Data is transmitted as a serialized string over LoRa:
+`T:[Temp]|H:[Hum]|PM:[PM2.5]|NO2:[Raw]|CO:[Raw]`
+
+## 📄 License
+This project is open-source. Feel free to use and modify it for your own environmental monitoring applications.

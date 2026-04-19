@@ -1,7 +1,15 @@
-# STM32 Specific
+# STM32 & IDE 
+.pio/
+.vscode/
+build/
+*.bin
+*.elf
+*.map
+*.hex
 .mxproject
-*.launch
 Debug/
 Release/
-bin/
-obj/
+
+# OS Files
+.DS_Store
+Thumbs.db

@@ -40,5 +40,3 @@ A high-performance, long-range environmental sensing node built on the **STM32 B
 Data is transmitted as a serialized string over LoRa:
 `T:[Temp]|H:[Hum]|PM:[PM2.5]|NO2:[Raw]|CO:[Raw]`
 
-## 📄 License
-This project is open-source. Feel free to use and modify it for your own environmental monitoring applications.
